@@ -2,6 +2,7 @@
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Artisan;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Schema\Blueprint;
 use Spatie\Permission\PermissionRegistrar;
@@ -121,7 +122,7 @@ class CreatePermissionTables extends Migration
             ->forget(config('permission.cache.key'));
 
 
-            
+        Artisan::call("criar-permissoes");    
     
 
     }

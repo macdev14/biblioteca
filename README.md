@@ -26,9 +26,6 @@ FILESYSTEM_DISK=public
 git clone https://github.com/macdev14/biblioteca.git
 cd biblioteca 
 php artisan migrate
-php artisan criar-permissoes
-php artisan db:seed
-php artisan db:seed --class=CreateAdminUserSeeder
 php artisan serve
 ```
 
