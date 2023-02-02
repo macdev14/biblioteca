@@ -7,7 +7,7 @@
         
         <div class="container mt-4">
             <form method="post" action="{{ route('users.update', $user->id) }}">
-                @method('patch')
+                @method('PATCH')
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nome</label>
@@ -36,10 +36,10 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Senha</label>
                     <input value="{{ old('password') }}"
-                        type="text" 
+                        type="password" 
                         class="form-control" 
                         name="password" 
-                        placeholder="password" required>
+                         required>
                     @if ($errors->has('password'))
                         <span class="text-danger text-left">{{ $errors->first('password') }}</span>
                     @endif
@@ -50,10 +50,10 @@
                     <input value="{{ old('password') }}"
                         type="password" 
                         class="form-control" 
-                        name="password" 
-                        placeholder="" required>
+                        name="password_confirmation" 
+                        required>
                     @if ($errors->has('password_confirmation'))
-                        <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+                        <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>
                     @endif
                 </div>
               

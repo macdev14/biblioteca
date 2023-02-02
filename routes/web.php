@@ -93,6 +93,6 @@ Route::group(['prefix' => 'reservation', 'middleware'=>['auth', 'permission']], 
     Route::post('/create', [ReservationController::class, 'store'])->name('reservation.store');
     Route::get('/{reserve}/show', [ReservationController::class, 'show'] )->name('reservation.show');
     Route::get('/{reserve}/edit',  [ReservationController::class, 'edit'] )->name('reservation.edit');
-    Route::patch('/{reserve}/update',  [ReservationController::class, 'update'] )->name('reservation.update');
+    Route::put('/{reserve}/update',  [ReservationController::class, 'update'] )->name('reservation.update');
     Route::delete('/{reserve}/delete',  [ReservationController::class, 'destroy'] )->name('reservation.destroy');
 });
