@@ -62,20 +62,23 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('[name="all_permission"]').on('click', function() {
 
-                if($(this).is(':checked')) {
-                    $.each($('.permission'), function() {
-                        $(this).prop('checked',true);
-                    });
-                } else {
-                    $.each($('.permission'), function() {
-                        $(this).prop('checked',false);
-                    });
-                }
+
+
+        // $(document).ready(function() {
+        //     $('[name="all_permission"]').on('click', function() {
+
+        //         if($(this).is(':checked')) {
+        //             $.each($('.permission'), function() {
+        //                 $(this).prop('checked',true);
+        //             });
+        //         } else {
+        //             $.each($('.permission'), function() {
+        //                 $(this).prop('checked',false);
+        //             });
+        //         }
                 
-            });
-        });
+        //     });
+        // });
     </script>
 </x-layout>
