@@ -60,6 +60,7 @@
         </div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('[name="all_permission"]').on('click', function() {
