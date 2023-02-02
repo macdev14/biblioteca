@@ -8,18 +8,16 @@
             <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new user</a>
         </div>
         
-        <div class="mt-2">
-            @include('layouts.partials.messages')
-        </div>
+       
 
         <table class="table table-striped">
             <thead>
             <tr>
                 <th scope="col" width="1%">#</th>
-                <th scope="col" width="15%">Name</th>
+                <th scope="col" width="15%">Nome</th>
                 <th scope="col">Email</th>
-                <th scope="col" width="10%">Username</th>
-                <th scope="col" width="10%">Roles</th>
+              
+                <th scope="col" width="10%">Tipo</th>
                 <th scope="col" width="1%" colspan="3"></th>    
             </tr>
             </thead>
