@@ -1,16 +1,14 @@
 <x-layout>
 
     <div class="bg-light p-4 rounded">
-        <h1>Add new role</h1>
-        <div class="lead">
-            Add new role and assign permissions.
-        </div>
+        <h1>Add Tipo</h1>
+        
 
         <div class="container mt-4">
 
             @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <strong>Opa!</strong> Parece que tem algum problema com seus dados.<br><br>
                     <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -22,7 +20,7 @@
             <form method="POST" action="{{ route('roles.store') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Nome</label>
                     <input value="{{ old('name') }}" 
                         type="text" 
                         class="form-control" 
@@ -30,13 +28,13 @@
                         placeholder="Name" required>
                 </div>
                 
-                <label for="permissions" class="form-label">Assign Permissions</label>
+                <label for="permissions" class="form-label">Conceder Permissões</label>
 
                 <table class="table table-striped">
                     <thead>
                         <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                        <th scope="col" width="20%">Name</th>
-                        <th scope="col" width="1%">Guard</th> 
+                        <th scope="col" width="20%">Nome</th>
+                        <th scope="col" width="1%">Tipo</th> 
                     </thead>
 
                     @foreach($permissions as $permission)
@@ -53,8 +51,8 @@
                     @endforeach
                 </table>
 
-                <button type="submit" class="btn btn-primary">Save user</button>
-                <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
+                <button type="submit" class="btn btn-primary">Salvar Usuário</button>
+                <a href="{{ route('users.index') }}" class="btn btn-default">Voltar</a>
             </form>
         </div>
 

@@ -1,9 +1,7 @@
 <x-layout>
     <div class="bg-light p-4 rounded">
-        <h1>Update role</h1>
-        <div class="lead">
-            Edit role and manage permissions.
-        </div>
+        <h1>Alterar tipo</h1>
+        
 
         <div class="container mt-4">
 
@@ -22,7 +20,7 @@
                 @method('patch')
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Nome</label>
                     <input value="{{ $role->name }}" 
                         type="text" 
                         class="form-control" 
@@ -30,13 +28,13 @@
                         placeholder="Name" required>
                 </div>
                 
-                <label for="permissions" class="form-label">Assign Permissions</label>
+                <label for="permissions" class="form-label">Conceder Permissões</label>
 
                 <table class="table table-striped">
                     <thead>
                         <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                        <th scope="col" width="20%">Name</th>
-                        <th scope="col" width="1%">Guard</th> 
+                        <th scope="col" width="20%">Nome</th>
+                        <th scope="col" width="1%">Tipo</th> 
                     </thead>
 
                     @foreach($permissions as $permission)
@@ -56,8 +54,8 @@
                     @endforeach
                 </table>
 
-                <button type="submit" class="btn btn-primary">Save changes</button>
-                <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                <a href="{{ route('roles.index') }}" class="btn btn-default">Voltar</a>
             </form>
         </div>
 

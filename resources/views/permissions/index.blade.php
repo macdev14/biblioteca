@@ -6,7 +6,7 @@
     <div class="bg-light p-4 rounded">
         <h2>Permissões</h2>
         <div class="lead">
-            Gerencie suas permissões.
+            Gerencie suas permissões.<br/>
             <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right">Add permissão</a>
         </div>
         

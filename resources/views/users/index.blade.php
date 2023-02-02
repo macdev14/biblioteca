@@ -1,13 +1,13 @@
 <x-layout>
-    <h1 class="mb-3">Laravel 8 User Roles and Permissions Step by Step Tutorial - codeanddeploy.com</h1>
+    <h1 class="mb-3">Usuário(s)</h1>
 
     <div class="bg-light p-4 rounded">
         <h1>Users</h1>
         <div class="lead">
-            Manage your users here.
-            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new user</a>
+            Gerencie seus usuários aqui.<br/>
+           
         </div>
-        
+        <div class="float-right"> <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Adiconar novo Usuário</a></div>
        
 
         <table class="table table-striped">
@@ -33,8 +33,8 @@
                                 <span class="badge bg-primary">{{ $role->name }}</span>
                             @endforeach
                         </td>
-                        <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                        <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Edit</a></td>
+                        <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-warning btn-sm">Ver</a></td>
+                        <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Editar</a></td>
                         <td>
                             {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}

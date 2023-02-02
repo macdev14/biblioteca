@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -29,7 +30,7 @@ class UsersController extends Controller
      */
     public function create() 
     {
-        return view('users.create');
+        return view('users.create', ['roles'=>Role::all()]);
     }
 
     /**
@@ -44,12 +45,17 @@ class UsersController extends Controller
     {
         //For demo purposes only. When creating user or inviting a user
         // you should create a generated random password and email it to the user
-        $user->create(array_merge($request->validated(), [
-            'password' => 'test' 
-        ]));
+        $formFields = $request->validate([
+            'name'=>['required', 'min:3'],
+            'email'=>['required', 'email', Rule::unique('users','email')],
+            'password'=>['required', 'confirmed', 'min:6'],
+            ]
+        );
+        $user->create($formFields)->syncRoles($request->get('role'));
+        
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User created successfully.'));
+            ->with('message','Usuário adicionado com sucesso.');
     }
 
     /**
@@ -91,13 +97,20 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(User $user, UpdateUserRequest $request) 
-    {
-        $user->update($request->validated());
+    {   
+        $formFields = $request->validate([
+            'name'=>['required', 'min:3'],
+            'email'=>['required', 'email', Rule::unique('users','email')],
+            'password'=>['required', 'confirmed', 'min:6'],
+        ]
+        );
+        $formFields['password'] = bcrypt($formFields['password']);
+        $user->update($formFields);
 
         $user->syncRoles($request->get('role'));
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User updated successfully.'));
+            ->with('message','Usuário atualizado com sucesso.');
     }
 
     /**
@@ -112,6 +125,6 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User deleted successfully.'));
+            ->with('message','Usuário deletado com sucesso.');
     }
 }

@@ -1,6 +1,6 @@
 <x-layout>
     <div class="bg-light p-4 rounded">
-        <h1>Update user</h1>
+        <h1>Alterar Usuário</h1>
         <div class="lead">
             
         </div>
@@ -10,7 +10,7 @@
                 @method('patch')
                 @csrf
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
+                    <label for="name" class="form-label">Nome</label>
                     <input value="{{ $user->name }}" 
                         type="text" 
                         class="form-control" 
@@ -32,17 +32,31 @@
                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                     @endif
                 </div>
+
                 <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input value="{{ $user->username }}"
+                    <label for="password" class="form-label">Senha</label>
+                    <input value="{{ old('password') }}"
                         type="text" 
                         class="form-control" 
-                        name="username" 
-                        placeholder="Username" required>
-                    @if ($errors->has('username'))
-                        <span class="text-danger text-left">{{ $errors->first('username') }}</span>
+                        name="password" 
+                        placeholder="password" required>
+                    @if ($errors->has('password'))
+                        <span class="text-danger text-left">{{ $errors->first('password') }}</span>
                     @endif
                 </div>
+
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirmar Senha</label>
+                    <input value="{{ old('password') }}"
+                        type="password" 
+                        class="form-control" 
+                        name="password" 
+                        placeholder="" required>
+                    @if ($errors->has('password_confirmation'))
+                        <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+                    @endif
+                </div>
+              
                 <div class="mb-3">
                     <label for="role" class="form-label">Role</label>
                     <select class="form-control" 
@@ -60,8 +74,8 @@
                     @endif
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update user</button>
-                <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary">Atualizar Usuário</button>
+                <a href="{{ route('users.index') }}" class="btn btn-default">Cancelar</button>
             </form>
         </div>
 

@@ -26,16 +26,11 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           
               @auth
-             @role('usuario')
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('book-create') }}">Cadastrar Livros</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{route('book-manage')}}">Meus Livros</a>
-              </li>
-              @endrole
               
-              @role('admin')
+             
+            
+              
+              @if (auth()->user()->isAdmin())
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('permissions.index') }}">Permissões</a>
                
@@ -47,7 +42,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}">Usuários</a>
               </li>
-              @endrole
+              @else
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('book-create') }}">Cadastrar Livros</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('book-manage')}}">Meus Livros</a>
+              </li>
+              @endif
 
 
 

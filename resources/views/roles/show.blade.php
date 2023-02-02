@@ -7,12 +7,12 @@
         
         <div class="container mt-4">
 
-            <h3>Assigned permissions</h3>
+            <h3>Permissões Concedidas</h3>
 
             <table class="table table-striped">
                 <thead>
-                    <th scope="col" width="20%">Name</th>
-                    <th scope="col" width="1%">Guard</th> 
+                    <th scope="col" width="20%">Nome</th>
+                    <th scope="col" width="1%">Tipo</th> 
                 </thead>
 
                 @foreach($rolePermissions as $permission)
@@ -26,7 +26,7 @@
 
     </div>
     <div class="mt-4">
-        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">Edit</a>
-        <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
+        <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">Alterar</a>
+        <a href="{{ route('roles.index') }}" class="btn btn-default">Voltar</a>
     </div>
 </x-layout>
