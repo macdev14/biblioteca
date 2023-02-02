@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('books_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps('until');
         });
 
         Artisan::call('db:seed', [

@@ -90,8 +90,10 @@ Route::group(['prefix' => 'users', 'middleware'=>['auth', 'permission']], functi
 
 Route::group(['prefix' => 'reservation', 'middleware'=>['auth', 'permission']], function() {
     Route::get('/', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/manage', [ReservationController::class, 'manage'])->name('reservation.manage');    
     Route::get('/create', [ReservationController::class, 'create'])->name('reservation.create');
-    Route::put('/{book}/create', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::post('/create', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::put('/{book}/shortcut', [ReservationController::class, 'storeShortcut'])->name('reservation.storeShortcut');
     Route::get('/{reserve}/show', [ReservationController::class, 'show'] )->name('reservation.show');
     Route::get('/{reserve}/edit',  [ReservationController::class, 'edit'] )->name('reservation.edit');
     Route::put('/{reserve}/update',  [ReservationController::class, 'update'] )->name('reservation.update');

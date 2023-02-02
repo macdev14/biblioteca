@@ -1,5 +1,5 @@
 @props(['book'])
-<form action="{{ route('reservation.store', $book->id) }}" method="post" class="mt-4">
+<form action="{{ route('reservation.storeShortcut', $book->id) }}" method="post" class="mt-4">
   @method('PUT')
     @csrf
    

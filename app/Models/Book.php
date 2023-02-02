@@ -30,8 +30,8 @@ class Book extends Model
     }
 
     public function reservations(){
-        return $this->hasMany(Reservation::class, 'books_id');
-       }
+        return $this->belongsTo(Reservation::class, 'books_id');
+    }
     
     public function reserved(){
         $reserve = Reservation::where('books_id', $this->id)->exists();

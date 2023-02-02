@@ -6,10 +6,10 @@
     </div>
     
     <div class="row align-items-center mt-5">
-    @foreach($books as $book)
+    @foreach($reservations as $reservation)
     
        
-          <x-bookcard :book="$book"/>
+          <x-bookcard :book="$reservation->book"/>
     
     
         
@@ -19,7 +19,7 @@
     </div>
     <div class="row mt-2">
     
-        {{ $books->links() }}
+    
     
     </div>
     </x-layout>

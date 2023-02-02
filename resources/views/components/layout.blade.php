@@ -42,6 +42,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}">Usuários</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('reservation.manage')}}">Reservas de Usuários</a>
+              </li>
               @else
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('book-create') }}">Cadastrar Livros</a>

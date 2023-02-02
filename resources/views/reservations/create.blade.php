@@ -1,34 +1,59 @@
 <x-layout>
     <div class="container">
-        <form action="{{ route('book-store')}}" method="post" enctype="multipart/form-data" >
+        <form action="{{ route('reservation.store')}}" method="post" >
             @csrf
             
 
-            <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Reservar até</label>
-                <div class="col-8">
-                    <input type="date" class="form-control" name="image" id="date" placeholder="" value="{{old('image')}}">
-                </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Usuário</label>
+                <select class="form-control" 
+                    name="user" required>
+                    <option value="">Selecionar Usuário</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}">
+                            @if ($userReserved ?? false)
+                            {{ in_array($user->name, $userReserved) 
+                                ? 'selected'
+                                : '' }}>{{ $user->name }}
+                            @else
+                            {{ $user->name }}
+                             @endif
+                        </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('usuario'))
+                    <span class="text-danger text-left">{{ $errors->first('usuario') }}</span>
+                @endif
             </div>
 
-            <div class="mb-3 row">
-                <label for="author" class="col-4 col-form-label">Autor</label>
-                <div class="col-8">
-                    <input type="text" class="form-control" name="author" id="author" placeholder="Autor" value="{{old('author')}}">
-                </div>
-                @error("author")
-                <p style="color:crimson">
-                    {{$message}}
-                </p>
-                   
-                 
-            
-            @enderror
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Livro</label>
+                <select class="form-control" 
+                    name="book" required>
+                    <option value="">Selecionar Livro</option>
+                    @foreach($books as $book)
+                        <option value="{{ $book->id }}">
+                            @if ($userBook ?? false)
+                            {{ in_array($book->name, $userBook) 
+                                ? 'selected'
+                                : '' }}>{{ $book->name }}
+                            @else
+                            {{ $book->name }}
+                             @endif
+                        </option>
+                    @endforeach
+                </select>
+                @if ($errors->has('usuario'))
+                    <span class="text-danger text-left">{{ $errors->first('usuario') }}</span>
+                @endif
             </div>
+
+            
            
             <div class="mb-3 row">
                 <div class="offset-sm-4 col-sm-8">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="submit" class="btn btn-primary">Reservar</button>
                 </div>
             </div>
         </form>
