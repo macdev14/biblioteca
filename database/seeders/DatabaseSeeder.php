@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +24,13 @@ class DatabaseSeeder extends Seeder
             'email'=>'tmax@gmail.com',
             'password'=> bcrypt('tmax123')
         ]);
+
+       
+
+        $role = Role::create(['name' => 'usuario']);
+        $role->syncPermissions(Permission::pluck('id','id')->all());
+        $user->assignRole([$role->id]);
+
 
         $books =  \App\Models\Book::factory(5)->create([
             'user_id' => $user->id

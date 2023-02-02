@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -24,9 +25,19 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email:rfc,dns|unique:users,email',
-            
+            'name'=>['required', 'min:3'],
+            'email'=>['required', 'email', Rule::unique('users','email')],
+            'password'=>['required', 'confirmed', 'min:6'],
         ];
+    }
+
+    public function messages(){
+        return   ['name.required'=>'Favor inserir nome.', 
+        'email.required'=>'Favor inserir email.',
+        'password.required'=> 'Favor inserir senha.',
+        'password.confirmed' => 'Favor confirmar senha.',
+        'password.min:6' => 'A senha deve ter pelo menos 6 caracteres.',
+        // 'password_confirmation.required'=> 'Favor confirmar senha'
+    ];
     }
 }

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminUserController;
-use App\Models\Book;
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ReservationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,7 +70,7 @@ Route::post('user/logout',[UserController::class, 'logout'])->name('logout')->mi
 
 
 
-// Route::get('/admin', [AdminUserController::class, 'index'])->name('admin-index');
+
 Route::group(['prefix' => 'admin', 'middleware'=>['auth', 'permission']], function() {
 Route::resource('roles', RolesController::class);
 Route::resource('permissions', PermissionsController::class);
@@ -90,9 +91,9 @@ Route::group(['prefix' => 'users', 'middleware'=>['auth', 'permission']], functi
 Route::group(['prefix' => 'reservation', 'middleware'=>['auth', 'permission']], function() {
     Route::get('/', [ReservationController::class, 'index'])->name('reservation.index');
     Route::get('/create', [ReservationController::class, 'create'])->name('reservation.create');
-    Route::post('/create', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::put('/{book}/create', [ReservationController::class, 'store'])->name('reservation.store');
     Route::get('/{reserve}/show', [ReservationController::class, 'show'] )->name('reservation.show');
     Route::get('/{reserve}/edit',  [ReservationController::class, 'edit'] )->name('reservation.edit');
     Route::put('/{reserve}/update',  [ReservationController::class, 'update'] )->name('reservation.update');
-    Route::delete('/{reserve}/delete',  [ReservationController::class, 'destroy'] )->name('reservation.destroy');
+    Route::delete('/{book}/delete',  [ReservationController::class, 'destroy'] )->name('reservation.destroy');
 });

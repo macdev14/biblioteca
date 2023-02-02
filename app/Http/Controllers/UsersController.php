@@ -45,12 +45,7 @@ class UsersController extends Controller
     {
         //For demo purposes only. When creating user or inviting a user
         // you should create a generated random password and email it to the user
-        $formFields = $request->validate([
-            'name'=>['required', 'min:3'],
-            'email'=>['required', 'email', Rule::unique('users','email')],
-            'password'=>['required', 'confirmed', 'min:6'],
-            ]
-        );
+        $formFields = $request->validated();
         $user->create($formFields)->syncRoles($request->get('role'));
         
 
@@ -98,19 +93,14 @@ class UsersController extends Controller
      */
     public function update(User $user, UpdateUserRequest $request) 
     {   
-        $formFields = $request->validate([
-            'name'=>['required', 'min:3'],
-            'email'=>['required', 'email', Rule::unique('users','email')],
-            'password'=>['required', 'confirmed', 'min:6'],
-        ]
-        );
+
+        $formFields = $request->validated();
         $formFields['password'] = bcrypt($formFields['password']);
         $user->update($formFields);
 
         $user->syncRoles($request->get('role'));
 
-        return redirect()->route('users.index')
-            ->with('message','Usuário atualizado com sucesso.');
+        return redirect()->route('users.index')->with('message','Usuário atualizado com sucesso.');
     }
 
     /**
@@ -124,7 +114,6 @@ class UsersController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('users.index')
-            ->with('message','Usuário deletado com sucesso.');
+        return redirect()->route('users.index')->with('message','Usuário deletado com sucesso.');
     }
 }

@@ -59,7 +59,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
     
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+                        ->with('message','Tipo de usuário criado com sucesso');
     }
      /**
      * Display the specified resource.
@@ -109,7 +109,7 @@ class RolesController extends Controller
         $role->syncPermissions($request->get('permission'));
     
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+                        ->with('message','Tipo de usuário atualizado com sucesso');
     }
 
     /**
@@ -123,6 +123,6 @@ class RolesController extends Controller
         $role->delete();
 
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+                        ->with('success','Tipo de usuário deletado com sucesso');
     }
 }

@@ -14,7 +14,7 @@
             @auth
             @if ($book->user_id == auth()->user()->id)
             <a href="{{ route('book-edit', $book->id) }}"  class="btn btn-primary">Editar</a>
-            <form action="{{ route('book-update', $book->id) }}" method="post" class="mt-4">
+            <form action="{{ route('book-destroy', $book->id) }}" method="post" class="mt-4">
                 @csrf
                 @method('DELETE')
                 
