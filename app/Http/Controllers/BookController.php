@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 
 class BookController extends Controller
@@ -41,7 +42,17 @@ class BookController extends Controller
     
     );
     if(request()->hasFile('image')){
+        
+        // $extension  = request()->file('image')->get;
+        // $image_name = time() .'_' . request()->title . '.' . $extension;
+        
+        // Storage::disk('s3')->put('images', request()->file('image') );
+        // $path = Storage::disk('s3')->get(request()->file('image'));
+
         $formFields['image'] =request()->file('image')->store('images', 'public');
+        
+
+       
     }
         $formFields['user_id'] =  auth()->id();
         Book::create($formFields);
@@ -68,7 +79,12 @@ class BookController extends Controller
     
     );
     if(request()->hasFile('image')){
+        // Storage::disk('s3')->put('images', request()->file('image') );
+        // $path = Storage::disk('s3')->get('images', request()->file('image'));
+        
         $formFields['image'] =request()->file('image')->store('images', 'public');
+        
+        // $formFields['image'] = $path;
     }
         $book->update($formFields);
         Session::flash('message','Livro editado com sucesso!');
