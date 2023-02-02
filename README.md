@@ -24,7 +24,8 @@ FILESYSTEM_DISK=public
 
 ```bash
 git clone https://github.com/macdev14/biblioteca.git
-cd biblioteca 
+cd biblioteca
+composer install 
 php artisan migrate
 php artisan serve
 ```
