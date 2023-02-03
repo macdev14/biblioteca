@@ -1,12 +1,12 @@
 <x-layout>
-    <h1 class="mb-3">Adicionar Tipos de Usuário</h1>
+    <h1 class="mb-3"></h1>
 
     <div class="bg-light p-4 rounded">
         <h1>Tipos de Usuário</h1>
         <div class="lead">
-            Gerencie os tipos de usuário aqui.
-            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Add Tipo</a>
-            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right">Add Permissão</a>
+           <p> Gerencie os tipos de usuário aqui. </p>
+            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right mb-3">Add Tipo</a>
+            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right mb-3">Add Permissão</a>
         </div>
         
        

@@ -1,7 +1,7 @@
 <x-layout>
 
      
-    <h1 class="mb-3">Biblioteca</h1>
+    <h1 class="mb-3"></h1>
 
     <div class="bg-light p-4 rounded">
         <h2>Permissões</h2>

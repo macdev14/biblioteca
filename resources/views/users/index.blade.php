@@ -1,5 +1,5 @@
 <x-layout>
-    <h1 class="mb-3">Usuário(s)</h1>
+    
 
     <div class="bg-light p-4 rounded">
        

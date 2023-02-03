@@ -27,7 +27,10 @@
           
               @auth
               
+              <li class="nav-item">
+              <a class="nav-link">Olá, {{ auth()->user()->name }}</a>
              
+            </li>
             
               
               @if (auth()->user()->isAdmin())

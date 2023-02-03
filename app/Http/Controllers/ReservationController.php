@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReservationRequest;
 use App\Models\Book;
-use App\Models\Reservation;
 use App\Models\User;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\ReservationRequest;
+use App\Http\Requests\UpdateReservationRequest;
 
 class ReservationController extends Controller
 {
     public function create(){
        
-       
+        
         return view('reservations.create', [
             'books' => Book::all(),
             'users'=>User::all()
@@ -21,11 +22,35 @@ class ReservationController extends Controller
        
     }
 
+    
+
+    public function edit(Reservation $reserve){
+       
+       
+        return view('reservations.edit', [
+            'books' => Book::all(),
+            'users'=>User::all(),
+            'reservation'=> $reserve,
+           
+            
+        ]);
+       
+    }
+
+    public function update(Reservation $reserve, UpdateReservationRequest $request){
+        
+        $formFields =$request->validated();
+        $reserve->update($formFields);
+        Session::flash('message','Reserva atualizada com sucesso!');
+        return redirect()->route('reservation.edit', $reserve->id);
+       
+    }
+
     public function store(ReservationRequest $request){
         
         $request->validated();
         $reserve = Reservation::create($request);
-        Session::flash('message','Livro reservado com sucesso!');
+        Session::flash('message','Reserva criada com sucesso!');
         return redirect()->route('reservation.update', $reserve->id);
        
     }

@@ -28,9 +28,10 @@ class Book extends Model
     public function user(){
      return $this->belongsTo(User::class, 'user_id');
     }
+    
 
     public function reservations(){
-        return $this->belongsTo(Reservation::class, 'books_id');
+        return $this->hasMany(Reservation::class, 'books_id')->with('user');
     }
     
     public function reserved(){

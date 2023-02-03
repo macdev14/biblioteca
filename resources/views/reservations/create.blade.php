@@ -35,11 +35,11 @@
                     @foreach($books as $book)
                         <option value="{{ $book->id }}">
                             @if ($userBook ?? false)
-                            {{ in_array($book->name, $userBook) 
+                            {{ in_array($book->title, $userBook) 
                                 ? 'selected'
-                                : '' }}>{{ $book->name }}
+                                : '' }}>{{ $book->title }}
                             @else
-                            {{ $book->name }}
+                            {{ $book->title }}
                              @endif
                         </option>
                     @endforeach
