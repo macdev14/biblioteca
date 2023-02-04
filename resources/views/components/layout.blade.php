@@ -27,10 +27,7 @@
           
               @auth
               
-              <li class="nav-item">
-              <a class="nav-link">Olá, {{ auth()->user()->name }}</a>
-             
-            </li>
+              
             
               
               @if (auth()->user()->isAdmin())
@@ -55,6 +52,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('book-manage')}}">Meus Livros</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('reservation.index')}}">Minhas Reservas</a>
+              </li>
               @endif
 
 
@@ -71,8 +71,13 @@
               @endguest
             </ul>
             @auth
-            
-              <form method="post" action="{{ route('logout') }}" class="inline" style="margin-right:20px" >
+            <li class="nav-item" style="list-style-type: none;">
+              <a class="nav-link float-right">Olá, {{ auth()->user()->name }}</a>
+            </li>
+           
+          
+          
+              <form method="post" action="{{ route('logout') }}" class="inline" style="margin-right:20px; margin-left:20px" >
               @csrf
               <button class="btn btn-danger" type="submit">Sair</button>
               </form>
@@ -82,6 +87,7 @@
               <input name="search" class="form-control me-2" type="search" placeholder="Buscar Livro" aria-label="Buscar">
               <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
+          
           </div>
         </div>
       </nav>
