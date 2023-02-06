@@ -24,6 +24,7 @@ cd biblioteca
 composer install 
 ```
 
+
 ## Definir Variáveis de Ambiente
 
 
@@ -49,7 +50,7 @@ DB_PASSWORD=root
 
 BROADCAST_DRIVER=log
 CACHE_DRIVER=file
-FILESYSTEM_DISK=public
+FILESYSTEM_DISK=local
 QUEUE_CONNECTION=sync
 SESSION_DRIVER=file
 SESSION_LIFETIME=120
@@ -99,6 +100,7 @@ DB_DATABASE=example_app
 DB_USERNAME=''seu usuário''
 DB_PASSWORD=''sua senha''
 ```
+
 #### Alterar FILESYSTEM_DISK 
 ```
 FILESYSTEM_DISK=public
