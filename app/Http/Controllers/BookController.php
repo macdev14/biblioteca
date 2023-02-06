@@ -41,19 +41,19 @@ class BookController extends Controller
         ]
     
     );
-    if(request()->hasFile('image')){
+    // if(request()->hasFile('image')){
         
-        // $extension  = request()->file('image')->get;
-        // $image_name = time() .'_' . request()->title . '.' . $extension;
+    //     // $extension  = request()->file('image')->get;
+    //     // $image_name = time() .'_' . request()->title . '.' . $extension;
         
-        // Storage::disk('s3')->put('images', request()->file('image') );
-        // $path = Storage::disk('s3')->get(request()->file('image'));
+    //     // Storage::disk('s3')->put('images', request()->file('image') );
+    //     // $path = Storage::disk('s3')->get(request()->file('image'));
 
-        $formFields['image'] =request()->file('image')->store('images', 'public');
+    //     $formFields['image']
         
 
        
-    }
+    // }
         $formFields['user_id'] =  auth()->id();
         Book::create($formFields);
         Session::flash('message','Livro adicionado com sucesso!');
