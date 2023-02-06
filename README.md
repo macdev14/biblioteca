@@ -4,6 +4,8 @@ Biblioteca CRUD.
 
 ## Recursos Utilizados
 
+[PHP 8.1](https://www.php.net/releases/8.1/en.php)
+
 [Laravel](https://laravel.com/docs/5.8/installation)
 
 [Composer](https://getcomposer.org)
