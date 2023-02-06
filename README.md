@@ -33,7 +33,7 @@ ou copiar as informações abaixo
 ```bash
 APP_NAME=Laravel
 APP_ENV=local
-APP_KEY=
+APP_KEY=appkey
 APP_DEBUG=true
 APP_URL=http://localhost
 
