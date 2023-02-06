@@ -34,10 +34,12 @@ class BookController extends Controller
         // dd(request()->file('image')->store() );
         $formFields= request()->validate([
             'title'=>'required',
-            'author'=>'required'
+            'author'=>'required',
+            'image'=>'required'
         ],[
             'title.required'=>'Favor inserir título',
             'author.required'=>'Favor inserir autor',
+            'image.required'=>'Favor inserir imagem'
         ]
     
     );
