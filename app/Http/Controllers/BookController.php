@@ -71,21 +71,23 @@ class BookController extends Controller
         // dd(request()->file('image')->store() );
         $formFields= request()->validate([
             'title'=>'required',
-            'author'=>'required'
+            'author'=>'required',
+            'image'=>'required'
         ],[
             'title.required'=>'Favor inserir título',
             'author.required'=>'Favor inserir autor',
+            'image.required'=>'Favor inserir link da imagem do livro',
         ]
     
     );
-    if(request()->hasFile('image')){
-        // Storage::disk('s3')->put('images', request()->file('image') );
-        // $path = Storage::disk('s3')->get('images', request()->file('image'));
+    // if(request()->hasFile('image')){
+    //     // Storage::disk('s3')->put('images', request()->file('image') );
+    //     // $path = Storage::disk('s3')->get('images', request()->file('image'));
         
-        $formFields['image'] =request()->file('image')->store('images', 'public');
+    //     $formFields['image'] =request()->file('image')->store('images', 'public');
         
-        // $formFields['image'] = $path;
-    }
+    //     $formFields['image'] = $path;
+    // }
         $book->update($formFields);
         Session::flash('message','Livro editado com sucesso!');
         return back();

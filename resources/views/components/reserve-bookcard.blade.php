@@ -3,7 +3,7 @@
 <a href={{ route('reservation.edit', $reservation->id) }} style="text-decoration: none; color:black">
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"  
-        src="{{ $reservation->book->image ? asset('storage/'.$reservation->book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
+        src="{{ $reservation->book->image ? $reservation->book->image : 'https://via.placeholder.com/200x300' }}" alt="">
         <div class="card-body">
             <h5 class="card-title">
                  {{ $reservation->book->title }}

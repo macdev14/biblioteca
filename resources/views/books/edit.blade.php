@@ -17,22 +17,22 @@
             @enderror
 
             <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Capa</label>
+                <label for="image" class="col-4 col-form-label">Link da Capa</label>
                 <div class="col-md-6 col-xl-4 mt-5 mb-5">
-                    <img width="200px" height="300" src="{{ $book->image ? asset('storage/'.$book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
+                    <img width="200px" height="300" src="{{ $book->image ? $book->image : 'https://via.placeholder.com/200x300' }}" alt="">
                
                 <div class="col-8 mt-3">
-                    <input type="file" class="form-control" name="image" id="image" placeholder="Capa" >
+                    <input type="url" value="{{$book->image }}" class="form-control" name="image" id="image" placeholder="https://" >
                 </div>
             </div>
-                {{-- @error("author")
+                @error("image")
                 <p style="color:crimson">
                     {{$message}}
                 </p>
                    
                  
             
-            @enderror --}}
+            @enderror
             </div>
 
             <div class="mb-3 row">

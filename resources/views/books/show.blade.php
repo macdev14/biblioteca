@@ -1,7 +1,7 @@
 <x-layout>
 
     <div class="col-md-6 col-xl-4 mt-5 mb-5">
-        <img width="200px" height="300" src="{{ $book->image ? asset('storage/'.$book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
+        <img width="200px" height="300" src="{{ $book->image ? $book->image : 'https://via.placeholder.com/200x300' }}" alt="">
     </div>
 
     <div class="row align-items-center">

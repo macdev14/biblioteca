@@ -3,7 +3,7 @@
 <a href={{ route('book-update', $book->id) }} style="text-decoration: none; color:black">
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"  
-        src="{{ $book->image ? asset('storage/'.$book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
+        src="{{ $book->image ? $book->image : 'https://via.placeholder.com/200x300' }}" alt="">
         <div class="card-body">
             <h5 class="card-title">
                  {{ $book->title }}
