@@ -13,7 +13,7 @@
     <h2>Título:</h2>    <p> <span class="align-middle">  {{ $book->title }} </span> </p>
     <h2>Autor:</h2> <p>  {{ $book->author }}</p>
     @auth
-    @if ($book->user_id == auth()->user()->id)
+    @if ($book->user_id == auth()->user()->id || auth()->user()->isAdmin())
         
    
     <div class="col-md-6 col-xl-4 mt-5 mb-5">

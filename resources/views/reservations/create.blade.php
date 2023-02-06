@@ -7,7 +7,7 @@
             <div class="mb-3">
                 <label for="role" class="form-label">Usuário</label>
                 <select class="form-control" 
-                    name="user" required>
+                    name="user_id" required>
                     <option value="">Selecionar Usuário</option>
                     @foreach($users as $user)
                         <option value="{{ $user->id }}">
@@ -30,7 +30,7 @@
             <div class="mb-3">
                 <label for="role" class="form-label">Livro</label>
                 <select class="form-control" 
-                    name="book" required>
+                    name="books_id" required>
                     <option value="">Selecionar Livro</option>
                     @foreach($books as $book)
                         <option value="{{ $book->id }}">

@@ -48,10 +48,14 @@ class ReservationController extends Controller
 
     public function store(ReservationRequest $request){
         
-        $request->validated();
-        $reserve = Reservation::create($request);
+        $formFields = $request->validated();
+        $reserve = Reservation::create([
+            'user_id' => $formFields['user_id'],
+            'books_id' => $formFields['books_id'],
+        ]);
+        // $reserve = Reservation::create($formFields);
         Session::flash('message','Reserva criada com sucesso!');
-        return redirect()->route('reservation.update', $reserve->id);
+        return redirect()->route('reservation.edit', $reserve->id);
        
     }
 
@@ -63,6 +67,7 @@ class ReservationController extends Controller
                 'user_id' => auth()->id()
             ]
             );
+        Session::flash('message','Reserva criada com sucesso!');
         return redirect()->route('index');
        
     }

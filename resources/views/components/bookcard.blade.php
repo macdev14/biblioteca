@@ -12,7 +12,7 @@
                 {{ $book->author }}
             </p>
             @auth
-            @if ($book->user_id == auth()->user()->id)
+            @if (auth()->user()->isAdmin() || $book->user_id == auth()->user()->id)
             <a href="{{ route('book-edit', $book->id) }}"  class="btn btn-primary">Editar</a>
             <form action="{{ route('book-destroy', $book->id) }}" method="post" class="mt-4">
                 @csrf
@@ -31,7 +31,7 @@
 
             @endif
             @if ($book->reserved())
-                @if ( $book->reservations->where('user_id', auth()->id())->isNotEmpty())
+                @if ( $book->reservations->where('user_id', auth()->id())->isNotEmpty() || auth()->user()->isAdmin())
                 <x-unreserve  :book="$book" />
                 @else 
                 <h5 style="color:red"> Livro Reservado por outro usuário</h5>

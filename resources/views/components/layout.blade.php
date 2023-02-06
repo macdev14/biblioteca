@@ -45,7 +45,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('reservation.manage')}}">Reservas de Usuários</a>
               </li>
-              @else
+              @endif
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('book-create') }}">Cadastrar Livros</a>
               </li>
@@ -55,7 +55,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('reservation.index')}}">Minhas Reservas</a>
               </li>
-              @endif
+           
 
 
 
@@ -93,8 +93,9 @@
       </nav>
   </header>
   <main>
-    <x-flash-message/>
+ 
     <div class="container">
+      <x-flash-message/>
        {{$slot}}
       
     </div>

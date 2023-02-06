@@ -24,16 +24,16 @@ class ReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'user'=>['required'],
-            'book'=>['required'],
+            'user_id'=>['required'],
+            'books_id'=>['required'],
         ];
     }
 
     public function messages()
     {
         return [
-            'user.required'=>'Favor selecionar usuário.',
-            'book.required'=>'Favor selecionar livro.',
+            'user_id.required'=>'Favor selecionar usuário.',
+            'books_id.required'=>'Favor selecionar livro.',
         ];
     }
 }
