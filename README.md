@@ -103,8 +103,8 @@ DB_PASSWORD=''sua senha''
 
 Salvar e executar os seguintes comandos
 ```
-php artisan key:generate
 php artisan migrate
+php artisan key:generate
 php artisan serve
 ```
 
