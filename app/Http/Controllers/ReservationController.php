@@ -14,9 +14,11 @@ class ReservationController extends Controller
 {
     public function create(){
        
-        
+        $books_id = Reservation::pluck('books_id')->all();
+        // $users_id = Reservation::pluck('books_id')->all();
+        $unReservedbooks = Book::whereNotIn('id', $books_id)->get();
         return view('reservations.create', [
-            'books' => Book::all(),
+            'books' => $unReservedbooks,
             'users'=>User::all()
         ]);
        
@@ -25,10 +27,13 @@ class ReservationController extends Controller
     
 
     public function edit(Reservation $reserve){
-       
-       
+        
+        $books_id = Reservation::pluck('books_id')->all();
+        $unReservedbooks = Book::whereNotIn('id', $books_id)->get();
+        $r  = Book::where('id','=' ,$reserve->book->id)->get();
+        $unReservedbooks = $unReservedbooks->merge($r);
         return view('reservations.edit', [
-            'books' => Book::all(),
+            'books' => $unReservedbooks,
             'users'=>User::all(),
             'reservation'=> $reserve,
            

@@ -54,11 +54,15 @@
                 <div class="col-xl-10">
                     <button type="submit" class="btn btn-primary">Alterar Reserva</button>
                 
-                    <a style="float:right" href="{{ route('reservation.destroy', $reservation->id )}}">
-                    <button  class="btn btn-danger">Excluir</button>
-                </a>
-                </div>
-            </div>
+                    
+              
+        </form>
+    </div>
+</div>
+        <form  method="post" style="float:right" action="{{ route('reservation.destroy', $reservation->id )}}">
+            @method('DELETE')
+            @csrf
+            <button type="submit" class="btn btn-danger">Excluir</button>
         </form>
     </div>
 </x-layout>
