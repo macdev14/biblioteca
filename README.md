@@ -101,16 +101,9 @@ DB_USERNAME=''seu usuário''
 DB_PASSWORD=''sua senha''
 ```
 
-#### Alterar FILESYSTEM_DISK 
-```
-FILESYSTEM_DISK=public
-```
-#### Alterar e Definir APP_KEY 
-```
-APP_KEY=''Chave app key''
-```
 Salvar e executar os seguintes comandos
 ```
+php artisan key:generate
 php artisan migrate
 php artisan serve
 ```
