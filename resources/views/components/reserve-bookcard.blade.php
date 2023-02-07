@@ -12,7 +12,7 @@
                 {{ $reservation->book->author }}
             </p>
             <p class="card-body">
-                Reservado por:  <a href="{{ route('users.update', $reservation->user->id) }}" target="_blank" rel="noopener noreferrer">{{ $reservation->user->name }}</a> 
+                Reservado por:  <a href="{{ route('users.edit', $reservation->user->id) }}" target="_blank" rel="noopener noreferrer">{{ $reservation->user->name }}</a> 
             </p>
             @auth
             @if (auth()->user()->isAdmin() || $reservation->book->user_id == auth()->user()->id)

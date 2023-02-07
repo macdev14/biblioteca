@@ -64,13 +64,23 @@ class BookController extends Controller
 
     public function edit(Book $book){
         // dd($book);
+        if(auth()->id()==$book->user->id || auth()->user()->isAdmin()){
         return view('books.edit', ['book'=>$book]);
+        }
+        else{
+            Session::flash('message','Livro adicionado por outro usuário!');
+            return redirect()->route('index');
+        }
     }
 
     // Atualizar dados do livro
 
     public function update(Book $book){
         // dd(request()->file('image')->store() );
+
+
+        if(auth()->id()==$book->user->id || auth()->user()->isAdmin()){
+
         $formFields= request()->validate([
             'title'=>'required',
             'author'=>'required',
@@ -93,12 +103,21 @@ class BookController extends Controller
         $book->update($formFields);
         Session::flash('message','Livro editado com sucesso!');
         return back();
+    }else{
+        Session::flash('message','Livro adicionado por outro usuário!');
+        return redirect()->route('index');
+    }
     }
     
     public function destroy(Book $book){
+        if(auth()->id()==$book->user->id || auth()->user()->isAdmin()){
         $book->delete();
         Session::flash('message','Livro excluído com sucesso!');
         return redirect('/');
+        }else{
+            Session::flash('message','Livro adicionado por outro usuário!');
+            return redirect()->route('index');
+        }
     }
 
     public function manage(){

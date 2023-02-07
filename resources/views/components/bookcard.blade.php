@@ -1,6 +1,6 @@
 @props(['book'])
 <div class="col-md-6 col-xl-4 mt-2 mb-2">
-<a href={{ route('book-update', $book->id) }} style="text-decoration: none; color:black">
+<a href={{ route('book-show', $book->id) }} style="text-decoration: none; color:black">
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"  
         src="{{ $book->image ? $book->image : 'https://via.placeholder.com/200x300' }}" alt="">
