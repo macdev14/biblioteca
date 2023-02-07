@@ -30,32 +30,42 @@
               
             
               
-              @if (auth()->user()->isAdmin())
+              @can('permissions.index')
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('permissions.index') }}">Permissões</a>
                
               </li>
-
+              @endcan
+              @can('roles.index')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('roles.index')}}">Tipo de Usuário</a>
               </li>
+              @endcan
+              @can('users.index')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('users.index')}}">Usuários</a>
               </li>
+              @endcan
+              @can('reservation.manage')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('reservation.manage')}}">Reservas de Usuários</a>
               </li>
-              @endif
+              @endcan
+              @can('book-create')
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('book-create') }}">Cadastrar Livros</a>
               </li>
+              @endcan
+              @can('book-manage')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('book-manage')}}">Meus Livros</a>
               </li>
+              @endcan
+              @can('reservation.index')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('reservation.index')}}">Minhas Reservas</a>
               </li>
-           
+              @endcan
 
 
 
@@ -76,11 +86,12 @@
             </li>
            
           
-          
+            @can('logout')
               <form method="post" action="{{ route('logout') }}" class="inline" style="margin-right:20px; margin-left:20px" >
               @csrf
               <button class="btn btn-danger" type="submit">Sair</button>
               </form>
+            @endcan
          
             @endauth
             <form action="/" class="d-flex" role="search" method="get">
