@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>Biblioteca</title>
+  <title>MedLobby</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,22 +18,22 @@
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{url('/')}}">Biblioteca</a>
+          <a class="navbar-brand" href="{{url('/')}}">MedLobby</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          
+
               @auth
-              
-              
-            
-              
+
+
+
+
               @can('permissions.index')
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('permissions.index') }}">Permissões</a>
-               
+
               </li>
               @endcan
               @can('roles.index')
@@ -69,7 +69,7 @@
 
 
 
-              
+
               @endauth
               @guest
               <li class="nav-item">
@@ -84,34 +84,34 @@
             <li class="nav-item" style="list-style-type: none;">
               <a class="nav-link float-right">Olá, {{ auth()->user()->name }}</a>
             </li>
-           
-          
+
+
             @can('logout')
               <form method="post" action="{{ route('logout') }}" class="inline" style="margin-right:20px; margin-left:20px" >
               @csrf
               <button class="btn btn-danger" type="submit">Sair</button>
               </form>
             @endcan
-         
+
             @endauth
             <form action="{{route('index')}}" class="d-flex" role="search" method="get">
               <input name="search" class="form-control me-2" type="search" placeholder="Buscar Livro" aria-label="Buscar">
               <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
-          
+
           </div>
         </div>
       </nav>
   </header>
   <main>
- 
+
     <div class="container">
       <x-flash-message/>
        {{$slot}}
-      
+
     </div>
 
-    
+
   </main>
   <footer>
     <!-- place footer here -->
@@ -125,10 +125,10 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
   <script src="//unpkg.com/alpinejs" defer></script>
- 
 
 
- 
+
+
 </body>
 
 </html>
