@@ -17,7 +17,7 @@
             @enderror
 
             <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Link da Capa</label>
+                <label for="image" class="col-4 col-form-label">Upload de Arquivo</label>
                 <div class="col-md-6 col-xl-4 mt-5 mb-5">
                     <img width="200px" height="300" src="{{ $book->image ? Storage::disk('s3')->url($book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
 
