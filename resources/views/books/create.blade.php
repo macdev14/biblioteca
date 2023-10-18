@@ -14,6 +14,18 @@
         </p>
             @enderror
 
+        <div class="mb-3 row">
+    <label for="image" class="col-4 col-form-label">Image Upload</label>
+    <div class="col-8">
+        <input type="file" class="form-control" name="image" id="image">
+    </div>
+    @error("image")
+    <p style="color: crimson">
+        {{ $message }}
+    </p>
+    @enderror
+</div>
+
             <div class="mb-3 row">
                 <label for="image" class="col-4 col-form-label">Link da imagem da Capa</label>
                 <div class="col-8">
@@ -23,12 +35,22 @@
                 <p style="color:crimson">
                     {{$message}}
                 </p>
-                   
-                 
-            
+
+
+
             @enderror
             </div>
-
+            <div class="mb-3 row">
+                <label for="image" class="col-4 col-form-label">Image Upload</label>
+                <div class="col-8">
+                    <input type="file" class="form-control" name="image" id="image">
+                </div>
+                @error("image")
+                <p style="color: crimson">
+                    {{ $message }}
+                </p>
+                @enderror
+            </div>
             <div class="mb-3 row">
                 <label for="author" class="col-4 col-form-label">Autor</label>
                 <div class="col-8">
@@ -38,12 +60,12 @@
                 <p style="color:crimson">
                     {{$message}}
                 </p>
-                   
-                 
-            
+
+
+
             @enderror
             </div>
-           
+
             <div class="mb-3 row">
                 <div class="offset-sm-4 col-sm-8">
                     <button type="submit" class="btn btn-primary">Salvar</button>

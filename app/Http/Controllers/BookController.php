@@ -12,7 +12,7 @@ class BookController extends Controller
 {
     // Show all listings
     public function index(){
-       
+
         return view('books.index',[
             'heading'=> 'LATEST BOOKS',
             'books'=> Book::latest()->filter(request(['title', 'search']))->paginate(6)
@@ -41,20 +41,20 @@ class BookController extends Controller
             'author.required'=>'Favor inserir autor',
             'image.required'=>'Favor inserir imagem'
         ]
-    
+
     );
     // if(request()->hasFile('image')){
-        
+
     //     // $extension  = request()->file('image')->get;
     //     // $image_name = time() .'_' . request()->title . '.' . $extension;
-        
+
     //     // Storage::disk('s3')->put('images', request()->file('image') );
     //     // $path = Storage::disk('s3')->get(request()->file('image'));
 
     //     $formFields['image']
-        
 
-       
+
+
     // }
         $formFields['user_id'] =  auth()->id();
         Book::create($formFields);
@@ -75,40 +75,51 @@ class BookController extends Controller
 
     // Atualizar dados do livro
 
-    public function update(Book $book){
-        // dd(request()->file('image')->store() );
+public function update(Book $book)
+{
+    if (auth()->id() == $book->user->id || auth()->user()->isAdmin()) {
 
+        $formFields = request()->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'image' => 'image|required' // You can add image validation rules
+        ], [
+            'title.required' => 'Favor inserir título',
+            'author.required' => 'Favor inserir autor',
+            'image.required' => 'Favor inserir link da imagem do livro',
+        ]);
 
-        if(auth()->id()==$book->user->id || auth()->user()->isAdmin()){
+        $formFieldCopy = $formFields;
 
-        $formFields= request()->validate([
-            'title'=>'required',
-            'author'=>'required',
-            'image'=>'required'
-        ],[
-            'title.required'=>'Favor inserir título',
-            'author.required'=>'Favor inserir autor',
-            'image.required'=>'Favor inserir link da imagem do livro',
-        ]
-    
-    );
-    // if(request()->hasFile('image')){
-    //     // Storage::disk('s3')->put('images', request()->file('image') );
-    //     // $path = Storage::disk('s3')->get('images', request()->file('image'));
-        
-    //     $formFields['image'] =request()->file('image')->store('images', 'public');
-        
-    //     $formFields['image'] = $path;
-    // }
-        $book->update($formFields);
-        Session::flash('message','Livro editado com sucesso!');
+        if (request()->hasFile('image')) {
+            $uploadedFile = request()->file('image');
+            $filename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $uploadedFile->getClientOriginalExtension();
+            $newFilename = $filename . '_' . uniqid() . '.' . $extension;
+
+            $arquivoJaExiste = $book->image != null && Storage::disk('s3')->exists('images/' . $book->image);
+
+            if ($arquivoJaExiste) {
+                Storage::disk('s3')->delete('images/' . $book->image);
+            }
+
+            // Store the new image in S3
+            $awsPath = 'images/' . $newFilename;
+            Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
+
+            $formFieldCopy['image'] = $awsPath;
+        }
+
+        $book->update($formFieldCopy);
+        Session::flash('message', 'Livro editado com sucesso!');
         return back();
-    }else{
-        Session::flash('message','Livro adicionado por outro usuário!');
+    } else {
+        Session::flash('message', 'Livro adicionado por outro usuário!');
         return redirect()->route('index');
     }
-    }
-    
+}
+
+
     public function destroy(Book $book){
         if(auth()->id()==$book->user->id || auth()->user()->isAdmin()){
         $book->delete();
@@ -121,13 +132,13 @@ class BookController extends Controller
     }
 
     public function manage(){
-        return view('books.manage', 
+        return view('books.manage',
         [
             'books' => auth()->user()->books
         ]
     );
 
     }
-     
+
 
 }
