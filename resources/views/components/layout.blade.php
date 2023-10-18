@@ -95,7 +95,7 @@
 
             @endauth
             <form action="{{route('index')}}" class="d-flex" role="search" method="get">
-              <input name="search" class="form-control me-2" type="search" placeholder="Buscar Livro" aria-label="Buscar">
+              <input name="search" class="form-control me-2" type="search" placeholder="Buscar Publicação" aria-label="Buscar">
               <button class="btn btn-outline-success" type="submit">Buscar</button>
             </form>
 
