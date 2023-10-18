@@ -82,7 +82,7 @@ public function update(Book $book)
         $formFields = request()->validate([
             'title' => 'required',
             'author' => 'required',
-            'image' => 'image|required' // You can add image validation rules
+            // 'image' => 'image|required' // You can add image validation rules
         ], [
             'title.required' => 'Favor inserir título',
             'author.required' => 'Favor inserir autor',
