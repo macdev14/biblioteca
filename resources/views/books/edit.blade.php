@@ -20,7 +20,6 @@
                 <label for="image" class="col-4 col-form-label">Upload de Arquivo</label>
                 <div class="col-md-6 col-xl-4 mt-5 mb-5">
                     <img width="200px" height="300" src="{{ $book->image ? Storage::disk('s3')->url($book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
-
                     <div class="col-8">
                         <input type="file" class="form-control" name="image" id="image">
                     </div>
