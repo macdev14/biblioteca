@@ -98,7 +98,8 @@ class BookController extends Controller
     {
 
         $ehDonoOuAdmin = auth()->id() == $book->user->id || auth()->user()->isAdmin();
-        $temAutor =  request()->has('books_id');
+        $temAutor = request()->has('author');
+
         if ($ehDonoOuAdmin) {
 
             $formFields = request()->validate([
@@ -108,7 +109,7 @@ class BookController extends Controller
             ], [
                 'title.required' => 'Favor inserir título',
                 'author.required' => 'Favor inserir autor',
-                'image.required' => 'Favor inserir link da imagem do livro',
+                // 'image.required' => 'Favor inserir link da imagem do livro',
             ]);
 
             $formFieldCopy = $formFields;
@@ -131,10 +132,13 @@ class BookController extends Controller
 
                 $formFieldCopy['image'] = $awsPath;
             }
+
             if($temAutor){
-                foreach(request()->get('books_id') as $autor){
-                    $reserve = Reservation::create([
-                        'user_id' => $autor['user_id'],
+
+                Reservation::where('books_id',$book->id)->delete();
+                foreach(request()->get('author') as $autor){
+                    Reservation::create([
+                        'user_id' => $autor,
                         'books_id' => $book->id,
                     ]);
                 }
