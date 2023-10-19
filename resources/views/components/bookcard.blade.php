@@ -10,10 +10,10 @@
             </h5>
             <p class="card-body">
                 @if($book->reservations->count() > 1)
-                Autores:
+                Autores:<br>
                 @endif
                 @foreach ($book->reservations as $reservation)
-                {{$reservation->user->name}}
+                <strong>{{ $reservation->user->name}}</strong> - {{$reservation->user->email  }}
                 @endforeach
             </p>
             @auth
