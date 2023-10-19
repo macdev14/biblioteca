@@ -2,20 +2,20 @@
 <x-layout>
 
 <div class="row justify-content-center align-items-center g-2">
-    <h2 class="">Livro(s)</h2>
+    <h2 class="">{{ $books->count() > 1 ? 'Publicações' : ($books->count() == 1 ? 'Publicação': 'Nenhuma Publicação' ) }}</h2>
 </div>
 
 <div class="row align-items-center mt-5">
 @foreach($books as $book)
 
-   
+
       <x-bookcard :book="$book"/>
 
 
-    
-    
 
-@endforeach 
+
+
+@endforeach
 </div>
 <div class="row mt-2">
 

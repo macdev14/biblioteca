@@ -9,7 +9,12 @@
                  {{ $book->title }}
             </h5>
             <p class="card-body">
-                {{ $book->author }}
+                @if($book->reservations->count() > 1)
+                Autores:
+                @endif
+                @foreach ($book->reservations as $reservation)
+                {{$reservation->user->name}}
+                @endforeach
             </p>
             @auth
             @if (auth()->user()->isAdmin() || $book->user_id == auth()->user()->id)

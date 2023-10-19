@@ -35,19 +35,27 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="author" class="col-4 col-form-label">Autor</label>
+                <label for="author" class="col-4 col-form-label">Autor(s)</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="author" id="author" placeholder="Autor" value="{{ $book->author }}">
+                    <select class="form-control"
+                    name="books_id" required multiple>
+                    <option value="">Selecionar Autores/Usuários</option>
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}"
+                                {{$book->reservations()->where('user_id', $user->id)->count()==1 ? 'selected': '' }}
+                            >
+                                {{ $user->name }}
+                        </option>
+                    @endforeach
+                </select>
                 </div>
-                @error("author")
+                @error("reservations")
                 <p style="color:crimson">
                     {{$message}}
                 </p>
-
-
-
             @enderror
             </div>
+>
 
 
             <div class="mb-3 row">

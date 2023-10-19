@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container">
+
         <form action="{{ route('book-store')}}" method="post" enctype="multipart/form-data" >
             @csrf
             <div class="mb-3 row">
@@ -14,58 +14,38 @@
         </p>
             @enderror
 
-        <div class="mb-3 row">
-    <label for="image" class="col-4 col-form-label">Image Upload</label>
-    <div class="col-8">
-        <input type="file" class="form-control" name="image" id="image">
-    </div>
-    @error("image")
-    <p style="color: crimson">
-        {{ $message }}
-    </p>
-    @enderror
-</div>
-
             <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Link da imagem da Capa</label>
+                <label for="image" class="col-4 col-form-label">Upload da Publicação</label>
                 <div class="col-8">
-                    <input type="url" class="form-control" name="image" id="image" placeholder="https://" value="{{old('image')}}">
+                    <input type="file" class="form-control" name="image" id="image">
                 </div>
                 @error("image")
-                <p style="color:crimson">
-                    {{$message}}
+                <p style="color: crimson">
+                    {{ $message }}
                 </p>
-
-
-
-            @enderror
+                @enderror
             </div>
-            <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Upload de Arquivo</label>
-                <div class="col-md-6 col-xl-4 mt-5 mb-5">
-                    <img width="200px" height="300" src="{{ $book->image ? Storage::disk('s3')->url($book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
 
-                    <div class="col-8">
-                        <input type="file" class="form-control" name="image" id="image">
-                    </div>
-            </div>
-                @error("image")
-                <p style="color:crimson">
-                    {{$message}}
-                </p>
+
+
 
             <div class="mb-3 row">
-                <label for="author" class="col-4 col-form-label">Autor</label>
+                <label for="author" class="col-4 col-form-label">Selecionar Autores/Usuários</label>
                 <div class="col-8">
-                    <input type="text" class="form-control" name="author" id="author" placeholder="Autor" value="{{old('author')}}">
+                    <select class="form-control"
+                    name="books_id" required multiple>
+
+                    @foreach($users as $user)
+                        <option value="{{ $user->id }}">
+                                {{ $user->name.' - '.$user->email }}
+                        </option>
+                    @endforeach
+                </select>
                 </div>
-                @error("author")
+                @error("reservations")
                 <p style="color:crimson">
                     {{$message}}
                 </p>
-
-
-
             @enderror
             </div>
 
@@ -75,5 +55,5 @@
                 </div>
             </div>
         </form>
-    </div>
+
 </x-layout>

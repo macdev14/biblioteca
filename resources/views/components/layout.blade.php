@@ -105,7 +105,7 @@
   </header>
   <main>
 
-    <div class="container">
+    <div class="container pt-5">
       <x-flash-message/>
        {{$slot}}
 
