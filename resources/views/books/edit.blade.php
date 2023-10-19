@@ -44,7 +44,7 @@
                         <option value="{{ $user->id }}"
                                 {{$book->reservations->where('user_id', $user->id)->count()==1 ? 'selected': '' }}
                             >
-                                {{ $user->name }}
+                            {{ $user->name.' - '.$user->email }}
                         </option>
                     @endforeach
                 </select>
