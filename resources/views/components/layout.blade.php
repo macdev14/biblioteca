@@ -58,12 +58,12 @@
               @endcan
               @can('book-manage')
               <li class="nav-item">
-                <a class="nav-link" href="{{route('book-manage')}}">Meus Livros</a>
+                <a class="nav-link" href="{{route('book-manage')}}">Minhas Publicações</a>
               </li>
               @endcan
               @can('reservation.index')
               <li class="nav-item">
-                <a class="nav-link" href="{{route('reservation.index')}}">Minhas Reservas</a>
+                <a class="nav-link" href="{{route('reservation.index')}}">Autores e Suas Publicações</a>
               </li>
               @endcan
 
