@@ -39,10 +39,10 @@
                 @if ( $book->reservations->where('user_id', auth()->id())->isNotEmpty() || auth()->user()->isAdmin())
                 <x-unreserve  :book="$book" />
                 @else
-                <h5 style="color:red"> Livro Reservado por outro usuário</h5>
+                {{-- <h5 style="color:red"> Livro Reservado por outro usuário</h5> --}}
                 @endif
             @else
-            <x-reserve  :book="$book"/>
+            {{-- <x-reserve  :book="$book"/> --}}
                 @endif
             @endauth
         </div>
