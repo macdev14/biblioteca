@@ -38,7 +38,7 @@ class BookController extends Controller
     public function store()
     {
         // dd(request()->file('image')->store() );
-        $temAutor =  request()->has('reservations');
+        $temAutor =  request()->has('books_id');
         $formFields = request()->validate(
             [
                 'title' => 'required',
@@ -69,7 +69,7 @@ class BookController extends Controller
         $formFieldCopy['user_id'] =  auth()->id();
         $book = Book::create($formFieldCopy);
         if($temAutor){
-            foreach(request()->get('reservations') as $autor){
+            foreach(request()->get('books_id') as $autor){
                 $reserve = Reservation::create([
                     'user_id' => $autor['user_id'],
                     'books_id' => $book->id,
@@ -96,7 +96,9 @@ class BookController extends Controller
 
     public function update(Book $book)
     {
+
         $ehDonoOuAdmin = auth()->id() == $book->user->id || auth()->user()->isAdmin();
+        $temAutor =  request()->has('books_id');
         if ($ehDonoOuAdmin) {
 
             $formFields = request()->validate([
@@ -129,7 +131,14 @@ class BookController extends Controller
 
                 $formFieldCopy['image'] = $awsPath;
             }
-
+            if($temAutor){
+                foreach(request()->get('books_id') as $autor){
+                    $reserve = Reservation::create([
+                        'user_id' => $autor['user_id'],
+                        'books_id' => $book->id,
+                    ]);
+                }
+            }
             $book->update($formFieldCopy);
             Session::flash('message', 'Livro editado com sucesso!');
             return back();
