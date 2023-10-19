@@ -42,7 +42,7 @@
 
                     @foreach($users as $user)
                         <option value="{{ $user->id }}"
-                                {{$book->reservations()->where('user_id', $user->id)->count()==1 ? 'selected': '' }}
+                                {{$book->reservations->where('user_id', $user->id)->count()==1 ? 'selected': '' }}
                             >
                                 {{ $user->name }}
                         </option>
