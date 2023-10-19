@@ -35,11 +35,11 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="author" class="col-4 col-form-label">Autor(s)</label>
+                <label for="author" class="col-4 col-form-label">Selecionar Autores/Usuários</label>
                 <div class="col-8">
                     <select class="form-control"
                     name="books_id" required multiple>
-                    <option value="">Selecionar Autores/Usuários</option>
+
                     @foreach($users as $user)
                         <option value="{{ $user->id }}"
                                 {{$book->reservations()->where('user_id', $user->id)->count()==1 ? 'selected': '' }}
