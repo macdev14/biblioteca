@@ -19,7 +19,7 @@ class Book extends Model
 
             if($filters['search'] ?? false ){
                 $query->where('title', 'like','%'.request('search').'%')
-                
+
                 ->orWhere('author', 'like','%'.request('search').'%');
             }
     }
@@ -28,12 +28,12 @@ class Book extends Model
     public function user(){
      return $this->belongsTo(User::class, 'user_id');
     }
-    
+
 
     public function reservations(){
         return $this->hasMany(Reservation::class, 'books_id')->with('user');
     }
-    
+
     public function reserved(){
         $reserve = Reservation::where('books_id', $this->id)->exists();
         return $reserve;

@@ -33,7 +33,7 @@
                 <label for="author" class="col-4 col-form-label">Selecionar Autores/Usuários</label>
                 <div class="col-8">
                     <select class="form-control"
-                    name="author" required multiple>
+                    name="author[]" required multiple>
 
                     @foreach($users as $user)
                         <option value="{{ $user->id }}">

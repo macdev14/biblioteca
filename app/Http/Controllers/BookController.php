@@ -37,8 +37,7 @@ class BookController extends Controller
 
     public function store()
     {
-        // dd(request()->file('image')->store() );
-        $temAutor =  request()->has('books_id');
+        $temAutor = request()->has('author');
         $formFields = request()->validate(
             [
                 'title' => 'required',
@@ -67,11 +66,12 @@ class BookController extends Controller
             $formFieldCopy['image'] = $awsPath;
         }
         $formFieldCopy['user_id'] =  auth()->id();
+        $formFieldCopy['author'] = auth()->id();
         $book = Book::create($formFieldCopy);
         if($temAutor){
-            foreach(request()->get('books_id') as $autor){
-                $reserve = Reservation::create([
-                    'user_id' => $autor['user_id'],
+            foreach(request()->get('author') as $autor){
+                Reservation::create([
+                    'user_id' => $autor,
                     'books_id' => $book->id,
                 ]);
             }
