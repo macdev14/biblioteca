@@ -53,8 +53,9 @@ class BookController extends Controller
         );
 
         $formFieldCopy = $formFields;
+        $temArquivo = request()->hasFile('image');
 
-        if (request()->hasFile('image')) {
+        if ($temArquivo) {
             $uploadedFile = request()->file('image');
             $filename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $uploadedFile->getClientOriginalExtension();
@@ -104,26 +105,27 @@ class BookController extends Controller
 
             $formFields = request()->validate([
                 'title' => 'required',
-                'author' => 'required',
-                // 'image' => 'image|required' // You can add image validation rules
+                // 'author' => 'required',
+                'image' => 'required' // You can add image validation rules
             ], [
                 'title.required' => 'Favor inserir título',
-                'author.required' => 'Favor inserir autor',
-                // 'image.required' => 'Favor inserir link da imagem do livro',
+                // 'author.required' => 'Favor inserir autor',
+                'image.required' => 'Favor inserir link da imagem do livro',
             ]);
 
             $formFieldCopy = $formFields;
+            $temArquivo = request()->hasFile('image');
 
-            if (request()->hasFile('image')) {
+            if ($temArquivo) {
                 $uploadedFile = request()->file('image');
                 $filename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = $uploadedFile->getClientOriginalExtension();
                 $newFilename = $filename . '_' . uniqid() . '.' . $extension;
 
-                $arquivoJaExiste = $book->image != null && Storage::disk('s3')->exists('images/' . $book->image);
+                $arquivoJaExiste = $book->image != null && Storage::disk('s3')->exists($book->image);
 
                 if ($arquivoJaExiste) {
-                    Storage::disk('s3')->delete('images/' . $book->image);
+                    Storage::disk('s3')->delete($book->image);
                 }
 
                 // Store the new image in S3
@@ -157,6 +159,7 @@ class BookController extends Controller
     {
         $ehDonoOuAdmin = auth()->id() == $book->user->id || auth()->user()->isAdmin();
         if ($ehDonoOuAdmin) {
+            Storage::disk('s3')->delete($book->image);
             $book->delete();
             Session::flash('message', 'Livro excluído com sucesso!');
             return redirect('/');
