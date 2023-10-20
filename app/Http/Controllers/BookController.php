@@ -107,7 +107,7 @@ class BookController extends Controller
                 ]);
             }
         }
-        Session::flash('message', 'Livro adicionado com sucesso!');
+        Session::flash('message', 'Publicação adicionada com sucesso!');
         return redirect('/');
     }
 
@@ -118,7 +118,7 @@ class BookController extends Controller
         if ($ehDonoOuAdmin) {
             return view('books.edit', ['book' => $book, 'users'=>User::all()]);
         } else {
-            Session::flash('message', 'Livro adicionado por outro usuário!');
+            Session::flash('message', 'Publicação adicionada por outro usuário!');
             return redirect()->route('index');
         }
     }
@@ -204,10 +204,10 @@ class BookController extends Controller
                 }
             }
             $book->update($formFieldCopy);
-            Session::flash('message', 'Livro editado com sucesso!');
+            Session::flash('message', 'Publicação alterada com sucesso!');
             return back();
         } else {
-            Session::flash('message', 'Livro adicionado por outro usuário!');
+            Session::flash('message', 'Publicação adicionada por outro usuário!');
             return redirect()->route('index');
         }
     }
@@ -220,10 +220,10 @@ class BookController extends Controller
             Storage::disk('s3')->delete($book->image);
             Storage::disk('s3')->delete($book->file);
             $book->delete();
-            Session::flash('message', 'Livro excluído com sucesso!');
+            Session::flash('message', 'Publicação excluída com sucesso!');
             return redirect('/');
         } else {
-            Session::flash('message', 'Livro adicionado por outro usuário!');
+            Session::flash('message', 'Publicação adicionada por outro usuário!');
             return redirect()->route('index');
         }
     }
