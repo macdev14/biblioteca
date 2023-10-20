@@ -72,7 +72,7 @@ class BookController extends Controller
             $awsPath = 'images/'.auth()->id().'/'. $newFilename;
             Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
 
-            $formFieldCopy['image'] = $awsPath;
+            $formFields['image'] = $awsPath;
         }
 
         if ($temArquivoPDF) {
@@ -92,13 +92,13 @@ class BookController extends Controller
             $awsPath = 'file/'.auth()->id().'/' . $newFilename;
             Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
 
-            $formFieldCopy['file'] = $awsPath;
+            $formFields['file'] = $awsPath;
         }
 
 
 
-        $formFieldCopy['user_id'] =  auth()->id();
-        $book = Book::create($formFieldCopy);
+        $formFields['user_id'] =  auth()->id();
+        $book = Book::create($formFields);
         if($temAutor){
             foreach(request()->get('authors') as $autor){
                 Reservation::create([
