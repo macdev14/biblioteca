@@ -16,23 +16,23 @@ return new class extends Migration
     public function up()
     {
         // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('reservations');
+        //Schema::dropIfExists('reservations');
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('books_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-           
+
         });
 
         Artisan::call('db:seed', [
             '--class' => 'CreateAdminUserSeeder',
-            '--force' => true 
+            '--force' => true
         ]);
 
         Artisan::call('db:seed');
-    
+
     }
 
     /**
@@ -45,6 +45,6 @@ return new class extends Migration
         // DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('reservations');
         // DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-    
+
     }
 };

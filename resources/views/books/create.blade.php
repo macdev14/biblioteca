@@ -14,8 +14,21 @@
         </p>
             @enderror
 
+
             <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Upload da Publicação</label>
+                <label for="title" class="col-4 col-form-label">Descrição</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" name="author" id="author" placeholder="SubTítulo" value="{{  old('author')  }}">
+                </div>
+            </div>
+            @error("author")
+            <p style="color:crimson">
+                {{$message}}
+        </p>
+            @enderror
+
+            <div class="mb-3 row">
+                <label for="image" class="col-4 col-form-label">Upload da Thumbnail</label>
                 <div class="col-8">
                     <input type="file" class="form-control" name="image" id="image">
                 </div>
@@ -26,14 +39,26 @@
                 @enderror
             </div>
 
+            <div class="mb-3 row">
+                <label for="image" class="col-4 col-form-label">Upload da Publicação em PDF</label>
+                <div class="col-8">
+                    <input type="file" class="form-control" name="file" id="file">
+                </div>
+                @error("file")
+                <p style="color: crimson">
+                    {{ $message }}
+                </p>
+                @enderror
+            </div>
+
 
 
 
             <div class="mb-3 row">
-                <label for="author" class="col-4 col-form-label">Selecionar Autores/Usuários</label>
+                <label for="authors[]" class="col-4 col-form-label">Selecionar Autores</label>
                 <div class="col-8">
                     <select class="form-control"
-                    name="author[]" required multiple>
+                    name="authors[]" required multiple>
 
                     @foreach($users as $user)
                         <option value="{{ $user->id }}">

@@ -11,7 +11,14 @@
   <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="
+    https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js
+    "></script>
+    <link href="
+    https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/web/pdf_viewer.min.css
+    " rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/gh/macdev14/pdfviewer@master/dist/pspdfkit.js"></script>
 </head>
 
 <body>
@@ -125,6 +132,7 @@
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
   </script>
   <script src="//unpkg.com/alpinejs" defer></script>
+
 
 
 

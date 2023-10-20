@@ -17,7 +17,19 @@
             @enderror
 
             <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Upload de Arquivo</label>
+                <label for="title" class="col-4 col-form-label">Descrição</label>
+                <div class="col-8">
+                    <input type="text" class="form-control" name="author" id="author" placeholder="SubTítulo" value="{{  $book->author  }}">
+                </div>
+            </div>
+            @error("author")
+            <p style="color:crimson">
+                {{$message}}
+        </p>
+            @enderror
+
+            <div class="mb-3 row">
+                <label for="image" class="col-4 col-form-label">Upload de Thumbnail</label>
                 <div class="col-md-6 col-xl-4 mt-5 mb-5">
                     <img width="200px" height="300" src="{{ $book->image ? Storage::disk('s3')->url($book->image) : 'https://via.placeholder.com/200x300' }}" alt="">
                     <div class="col-8">
@@ -35,10 +47,23 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="author" class="col-4 col-form-label">Selecionar Autores/Usuários</label>
+                <label for="image" class="col-4 col-form-label">Upload da Publicação em PDF</label>
+                <iframe src="{{ $book->file ? Storage::disk('s3')->url($book->file) : '' }}" alt=""></iframe>
+                <div class="col-8 mt-4">
+                    <input type="file" class="form-control" name="file" id="file">
+                </div>
+                @error("file")
+                <p style="color: crimson">
+                    {{ $message }}
+                </p>
+                @enderror
+            </div>
+
+            <div class="mb-3 row">
+                <label for="authors[]" class="col-4 col-form-label">Selecionar Autores/Usuários</label>
                 <div class="col-8">
                     <select class="form-control"
-                    name="author[]" required multiple>
+                    name="authors[]" required multiple>
 
                     @foreach($users as $user)
                         <option value="{{ $user->id }}"

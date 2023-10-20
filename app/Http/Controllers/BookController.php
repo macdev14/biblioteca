@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
+
+
+
     // Show all listings
     public function index()
     {
@@ -21,6 +24,8 @@ class BookController extends Controller
             'books' => Book::latest()->filter(request(['title', 'search']))->paginate(6)
         ]);
     }
+
+
 
     public function show(Book $book)
     {
@@ -37,23 +42,26 @@ class BookController extends Controller
 
     public function store()
     {
-        $temAutor = request()->has('author');
+        $temAutor = request()->has('authors');
         $formFields = request()->validate(
             [
                 'title' => 'required',
-                // 'author' => 'required',
-                'image' => 'required'
+                'author' => 'required',
+                'authors' => 'required',
+                'file' => 'required'
             ],
             [
                 'title.required' => 'Favor inserir título',
-                // 'author.required' => 'Favor inserir autor',
-                'image.required' => 'Favor inserir imagem'
+                'author.required' => 'Favor inserir subtitulo',
+                'authors.required' => 'Favor selecionar autores',
+                'file.required' => 'Favor inserir publicacao'
             ]
 
         );
 
         $formFieldCopy = $formFields;
         $temArquivo = request()->hasFile('image');
+        $temArquivoPDF = request()->hasFile('file');
 
         if ($temArquivo) {
             $uploadedFile = request()->file('image');
@@ -61,16 +69,38 @@ class BookController extends Controller
             $extension = $uploadedFile->getClientOriginalExtension();
             $newFilename = $filename . '_' . uniqid() . '.' . $extension;
             // Store the new image in S3
-            $awsPath = 'images/' . $newFilename;
+            $awsPath = 'images/'.auth()->id().'/'. $newFilename;
             Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
 
             $formFieldCopy['image'] = $awsPath;
         }
+
+        if ($temArquivoPDF) {
+            $uploadedFile = request()->file('file');
+            $filename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $extension = $uploadedFile->getClientOriginalExtension();
+
+            $PDFerror = \Illuminate\Validation\ValidationException::withMessages([
+                'file' => ['Somente aceitamos tipo de arquivo PDF'],
+
+             ]);
+
+            $extension != 'pdf' && throw $PDFerror;
+
+            $newFilename = $filename . '_' . uniqid() . '.' . $extension;
+            // Store the new image in S3
+            $awsPath = 'file/'.auth()->id().'/' . $newFilename;
+            Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
+
+            $formFieldCopy['file'] = $awsPath;
+        }
+
+
+
         $formFieldCopy['user_id'] =  auth()->id();
-        $formFieldCopy['author'] = auth()->id();
         $book = Book::create($formFieldCopy);
         if($temAutor){
-            foreach(request()->get('author') as $autor){
+            foreach(request()->get('authors') as $autor){
                 Reservation::create([
                     'user_id' => $autor,
                     'books_id' => $book->id,
@@ -99,22 +129,24 @@ class BookController extends Controller
     {
 
         $ehDonoOuAdmin = auth()->id() == $book->user->id || auth()->user()->isAdmin();
-        $temAutor = request()->has('author');
+        $temAutor = request()->has('authors');
 
         if ($ehDonoOuAdmin) {
 
             $formFields = request()->validate([
                 'title' => 'required',
-                // 'author' => 'required',
-                'image' => 'required' // You can add image validation rules
+                'author' => 'required',
+                // 'file' => 'required' // You can add image validation rules
             ], [
                 'title.required' => 'Favor inserir título',
-                // 'author.required' => 'Favor inserir autor',
-                'image.required' => 'Favor inserir link da imagem do livro',
+                'author.required' => 'Favor inserir subtitulo',
+                'authors.required' => 'Favor selecionar autores',
+                'file.required' => 'Favor inserir arquivo da publicacao',
             ]);
 
             $formFieldCopy = $formFields;
             $temArquivo = request()->hasFile('image');
+            $temArquivoPDF = request()->hasFile('file');
 
             if ($temArquivo) {
                 $uploadedFile = request()->file('image');
@@ -129,16 +161,42 @@ class BookController extends Controller
                 }
 
                 // Store the new image in S3
-                $awsPath = 'images/' . $newFilename;
+                $awsPath = 'images/'.auth()->id().'/' . $newFilename;
                 Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
 
                 $formFieldCopy['image'] = $awsPath;
             }
 
+            if ($temArquivoPDF) {
+                $uploadedFile = request()->file('file');
+                $filename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $uploadedFile->getClientOriginalExtension();
+                $PDFerror = \Illuminate\Validation\ValidationException::withMessages([
+                'file' => ['Somente aceitamos tipo de arquivo PDF'],
+
+             ]);
+
+                $extension != 'pdf' && throw $PDFerror;
+
+                $newFilename = $filename . '_' . uniqid() . '.' . $extension;
+
+                $arquivoJaExiste = $book->file != null && Storage::disk('s3')->exists($book->file);
+
+                if ($arquivoJaExiste) {
+                    Storage::disk('s3')->delete($book->image);
+                }
+
+                // Store the new image in S3
+                $awsPath = 'file/'.auth()->id().'/' . $newFilename;
+                Storage::disk('s3')->put($awsPath, file_get_contents($uploadedFile));
+
+                $formFieldCopy['file'] = $awsPath;
+            }
+
             if($temAutor){
 
                 Reservation::where('books_id',$book->id)->delete();
-                foreach(request()->get('author') as $autor){
+                foreach(request()->get('authors') as $autor){
                     Reservation::create([
                         'user_id' => $autor,
                         'books_id' => $book->id,
@@ -160,6 +218,7 @@ class BookController extends Controller
         $ehDonoOuAdmin = auth()->id() == $book->user->id || auth()->user()->isAdmin();
         if ($ehDonoOuAdmin) {
             Storage::disk('s3')->delete($book->image);
+            Storage::disk('s3')->delete($book->file);
             $book->delete();
             Session::flash('message', 'Livro excluído com sucesso!');
             return redirect('/');

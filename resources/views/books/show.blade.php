@@ -6,7 +6,36 @@
 
     <div class="row align-items-center">
 
+        <style>
+            .pdf {
+                display: flex; height: 100%;flex-wrap: nowrap;position: relative;
+            }
+            .wrap
+{
+    /* width: 100%;
+    height: 100%; */
+    /* padding: 0;
+    overflow: hidden; */
+}
 
+.frame
+{
+
+    border: 0;
+
+    /* -ms-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    -o-transform: scale(0.75);
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0; */
+}
+            </style>
 
 
 
@@ -44,7 +73,56 @@
 
 
     </div>
+    <div id="pspdfkit" style="height: 100vh"></div>
+    {{-- <canvas id="the-canvas" style="border:1px solid black;"/> --}}
+    {{-- <object data="{{ $book->image ? Storage::disk('s3')->url($book->image) : 'https://via.placeholder.com/200x300' }}" type="application/pdf" height="100vh" width="100%"> --}}
+    {{-- <div class="box document">
+
+
+
+ </div> --}}
+    {{-- </object> --}}
+
+        {{-- <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Documento</h3>
+            </div>
+            <div class="panel-body wrap">
+                <iframe class="frame" width="100%" style="position: absolute" height="100%" src="{{ $book->image ? Storage::disk('s3')->url($book->image) : 'https://via.placeholder.com/200x300' }}"  frameborder="0" ></iframe>
+            </div>
+        </div> --}}
 </div>
+<script>
+	PSPDFKit.load({
+		container: "#pspdfkit",
+  		document: "{{ $book->file ? Storage::disk('s3')->url($book->file) : 'https://via.placeholder.com/200x300' }}" // Add the path to your document here.
+	})
+	.then(function(instance) {
+		console.log("PSPDFKit loaded", instance);
+	})
+	.catch(function(error) {
+		console.error(error.message);
+	});
+</script>
+<script>
+    pdfjsLib.getDocument("{{ $book->file ? Storage::disk('s3')->url($book->file) : 'https://via.placeholder.com/200x300' }}").then(function(pdf) {
+  pdf.getPage(1).then(function(page) {
+    var scale = 1.5;
+    var viewport = page.getViewport(scale);
+
+    var canvas = document.getElementById('the-canvas');
+    var context = canvas.getContext('2d');
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    var renderContext = {
+      canvasContext: context,
+      viewport: viewport
+    };
+    page.render(renderContext);
+  });
+});
+</script>
 </x-layout>
 
 
