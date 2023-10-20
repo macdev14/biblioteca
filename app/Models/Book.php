@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Book extends Model
 {
     use HasFactory;
-
+    protected $table = 'books';
     // protected $fillable = ['title', 'author'];
 
     public function scopeFilter($query, array $filters){
