@@ -53,11 +53,11 @@
                 <a class="nav-link" href="{{route('users.index')}}">Usuários</a>
               </li>
               @endcan
-              @can('reservation.manage')
+              {{-- @can('reservation.manage')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('reservation.manage')}}">Reservas de Usuários</a>
               </li>
-              @endcan
+              @endcan --}}
               @can('book-create')
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('book-create') }}">Nova Publicação</a>
@@ -68,11 +68,11 @@
                 <a class="nav-link" href="{{route('book-manage')}}">Minhas Publicações</a>
               </li>
               @endcan
-              @can('reservation.index')
+              {{-- @can('reservation.index')
               <li class="nav-item">
                 <a class="nav-link" href="{{route('reservation.index')}}">Autores e Suas Publicações</a>
               </li>
-              @endcan
+              @endcan --}}
 
 
 
