@@ -16,7 +16,7 @@
 
 
             <div class="mb-3 row">
-                <label for="title" class="col-4 col-form-label">Descrição</label>
+                <label for="author" class="col-4 col-form-label">Descrição</label>
                 <div class="col-8">
                     <input type="text" class="form-control" name="author" id="author" placeholder="SubTítulo" value="{{  old('author')  }}">
                 </div>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="mb-3 row">
-                <label for="image" class="col-4 col-form-label">Upload da Publicação em PDF</label>
+                <label for="file" class="col-4 col-form-label">Upload da Publicação em PDF</label>
                 <div class="col-8">
                     <input type="file" class="form-control" name="file" id="file">
                 </div>

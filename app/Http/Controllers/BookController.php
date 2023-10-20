@@ -47,14 +47,14 @@ class BookController extends Controller
             [
                 'title' => 'required',
                 'author' => 'required',
-                'authors' => 'required',
-                'file' => 'required'
+                // 'authors' => 'required',
+                // 'file' => 'required'
             ],
             [
                 'title.required' => 'Favor inserir título',
                 'author.required' => 'Favor inserir subtitulo',
                 'authors.required' => 'Favor selecionar autores',
-                'file.required' => 'Favor inserir publicacao'
+                // 'file.required' => 'Favor inserir publicacao'
             ]
 
         );
@@ -97,7 +97,7 @@ class BookController extends Controller
 
 
 
-        $formFields['user_id'] =  auth()->id();
+        $formFields['user_id'] = auth()->id();
         $book = Book::create($formFields);
         if($temAutor){
             foreach(request()->get('authors') as $autor){
