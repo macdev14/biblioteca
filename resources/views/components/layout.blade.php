@@ -60,7 +60,7 @@
               @endcan
               @can('book-create')
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('book-create') }}">Cadastrar Livros</a>
+                <a class="nav-link" href="{{ route('book-create') }}">Nova Publicação</a>
               </li>
               @endcan
               @can('book-manage')
